@@ -43,7 +43,8 @@ const UpdateEmailDev = z.object({
     .refine(val => val.endsWith("@gmail.com"), {
       message: SE.NOT_GMAIL,
   })),
-  password: password_field
+  password: password_field,
+  dev_password: z.string()
 })
 
 export const schemas = {

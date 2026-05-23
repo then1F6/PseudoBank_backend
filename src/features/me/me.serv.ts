@@ -3,7 +3,8 @@ import { DatabaseError } from "pg"
 
 import type { dto } from "./me.schema";
 import { generate_avatar} from "../../zutils/avatar.util";
-import { sha512 } from "../../zutils/hash.util";
+import { sha512, safe_equal } from "../../zutils/hash.util";
+import { config } from "../../config";
 
 import profilesRepo from "../../srepo/profiles.repo";
 import usersRepo from "../../srepo/users.repo";
@@ -83,7 +84,13 @@ export async function change_password(user_id: string, update: dto.UpdatePasswor
   if (!res.numUpdatedRows) {throw new HTTPError(404, "USER_NOT_FOUND")}
   return new Success("password updated")
 }
-export async function change_email_dev(user_id: string, new_email: string, password: string) {
+export async function change_email_dev(
+  user_id: string, new_email: string, password: string, dev_password: string
+) {
+  const is_match = safe_equal(dev_password, config.OWNER_PASSWORD)
+  
+  if (!is_match) { throw new HTTPError(403, "INCORRECT_PASSWORD")}
+
   await verify_password(user_id, password)
   
   try {

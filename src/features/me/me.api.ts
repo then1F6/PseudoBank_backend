@@ -63,10 +63,11 @@ router.post("/change/email/dev", async (c) => {
   const { user_id } = c.var.payload
   const { 
     new_email,
-    password 
+    password, 
+    dev_password
   } = await validate(sch.UpdateEmailDev, c)
 
-  const res = await change_email_dev(user_id, new_email, password)
+  const res = await change_email_dev(user_id, new_email, password, dev_password)
   return c.json(res)
 })
 

@@ -14,7 +14,7 @@ import refreshsRepo from "../../srepo/refreshs.repo";
 import { get_refresh } from "./auth.zquery";
 import { HTTPError, Success, ValidationError } from "../../zerrors/errors";
 import { generate_avatar } from "../../zutils/avatar.util";
-import { sha512 } from "../../zutils/hash.util";
+import { sha512, safe_equal } from "../../zutils/hash.util";
 
 import { SignJWT, jwtVerify } from "jose";
 
@@ -43,7 +43,11 @@ async function verify_google(token: string) {
 }
 
 
-export async function create_email_jwt_dev(email: string) {
+export async function create_email_jwt_dev(email: string, dev_password: string) {
+  const is_match = safe_equal(dev_password, config.OWNER_PASSWORD)
+
+  if (!is_match) { throw new HTTPError(403, "INCORRECT_PASSWORD")}
+
   const unique = await usersRepo.is_unique_email(db, email)
   if (!unique) { throw new HTTPError(409, "EMAIL_TAKEN") }
 

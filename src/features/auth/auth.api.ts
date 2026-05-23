@@ -1,7 +1,7 @@
 import { Hono, type Context } from "hono"
 const auth_router = new Hono()
 
-import { z } from "zod"
+import { string, z } from "zod"
 import { setCookie, getCookie } from "hono/cookie"
 import { signup, create_email_jwt, create_email_jwt_dev,
   is_unique_username, login_google, login, get_access, logout
@@ -30,12 +30,13 @@ function set_cookie(c: Context, access_token: string, refresh_token: string) {
 
 
 
-auth_router.post("/signup/email", async (c) => {
-  const { email } = await validate(z.object({
-    email: z.email().toLowerCase()
+auth_router.post("/signup/email/dev", async (c) => {
+  const { email, dev_password} = await validate(z.object({
+    email: z.email().toLowerCase(),
+    dev_password: z.string()
   }), c)
 
-  const jwt = await create_email_jwt_dev(email)
+  const jwt = await create_email_jwt_dev(email, dev_password)
   setCookie(c, "email_jwt", jwt, {
     httpOnly: true,
     secure: true,
