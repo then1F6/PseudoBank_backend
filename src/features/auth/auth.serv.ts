@@ -44,7 +44,7 @@ async function verify_google(token: string) {
 
 
 export async function create_email_jwt_dev(email: string, dev_password: string) {
-  const is_match = safe_equal(dev_password, config.OWNER_PASSWORD)
+  const is_match = safe_equal(dev_password, config.DEV_EMAIL_PASSWORD)
 
   if (!is_match) { throw new HTTPError(403, "INCORRECT_PASSWORD")}
 

@@ -8,6 +8,10 @@ const Username = (
   .max(32, VE.USERNAME_TOO_LONG)
   .regex(/^[a-z][a-z0-9_]+$/, VE.USERNAME_INVALID)
 )
+const SignupEmailDev = z.object({
+  email: z.email().toLowerCase(),
+  dev_password: z.string()
+})
 const UserSignup = (z.object({
   username: Username,
   display_name: (
@@ -27,7 +31,6 @@ const UserSignup = (z.object({
   message: VE.PASSWORDS_DONT_MATCH,
   path: ["confirm_password"],
 }) )
-
 const UserLogin = z.object({
   email: (z.email().trim().toLowerCase()
     .refine(val => val.endsWith("@gmail.com"), {
@@ -38,7 +41,6 @@ const UserLogin = z.object({
     .max(64,  VE.LOGIN_INVALID)
     .regex(/^[a-zA-Z0-9_.!?]+$/,  VE.LOGIN_INVALID)),
 })
-
 const GoogleAccess = z.object({
   token: (z.string()
     .min(100, VE.GOOGLE_TOKEN_INVALID)  
@@ -53,6 +55,7 @@ export const schemas = {
   UserLogin,
   GoogleAccess,
   Username: z.object({ username: Username}),
+  SignupEmailDev,
 }
 export namespace dto {
   export type SignupInput = ReturnType<typeof UserSignup.parse>

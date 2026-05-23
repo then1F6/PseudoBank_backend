@@ -87,7 +87,7 @@ export async function change_password(user_id: string, update: dto.UpdatePasswor
 export async function change_email_dev(
   user_id: string, new_email: string, password: string, dev_password: string
 ) {
-  const is_match = safe_equal(dev_password, config.OWNER_PASSWORD)
+  const is_match = safe_equal(dev_password, config.DEV_EMAIL_PASSWORD)
   
   if (!is_match) { throw new HTTPError(403, "INCORRECT_PASSWORD")}
 

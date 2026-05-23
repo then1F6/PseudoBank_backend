@@ -31,10 +31,7 @@ function set_cookie(c: Context, access_token: string, refresh_token: string) {
 
 
 auth_router.post("/signup/email/dev", async (c) => {
-  const { email, dev_password} = await validate(z.object({
-    email: z.email().toLowerCase(),
-    dev_password: z.string()
-  }), c)
+  const { email, dev_password} = await validate(sch.SignupEmailDev, c)
 
   const jwt = await create_email_jwt_dev(email, dev_password)
   setCookie(c, "email_jwt", jwt, {
