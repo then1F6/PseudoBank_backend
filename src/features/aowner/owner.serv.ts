@@ -3,6 +3,7 @@ import { config } from "../../config";
 import { safe_equal } from "../../zutils/hash.util";
 import { HTTPError, Success} from "../../zerrors/errors";
 import usersRepo from "../../srepo/users.repo";
+import notificateRepo from "../../srepo/notificate.repo";
 import { get_info_for_owner } from "./owner.zquery"
 
 
@@ -35,4 +36,17 @@ export async function get_user_for_owner(username:  string) {
   if (!res) { throw new HTTPError(404, "USER_NOT_FOUND") }
 
   return new Success("user", res)
+}
+
+export async function send_notification_everyone(message: string) {
+  const res = await notificateRepo.create(db, {
+    sender: null,
+    receiver: null,
+    message: message
+  })
+  if (!res.numInsertedOrUpdatedRows) {
+    throw new HTTPError(400, "SOMETHING_WRONG")
+  }
+
+  return new Success("notificaion sent for everyone")
 }

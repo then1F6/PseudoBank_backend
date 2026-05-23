@@ -34,7 +34,7 @@ export interface transactions {
 }
 export interface notifications {
   id: Generated<string>
-  sender: string
+  sender: string | null
   receiver: string | null
   message: string
   created_at: Generated<number>

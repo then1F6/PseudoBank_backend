@@ -102,7 +102,7 @@ async function create_transactions_table() {
 async function create_notifications_table() {
     await (db.schema.createTable("notifications").ifNotExists()
     .addColumn("id", "uuid", col => col.primaryKey().defaultTo(sql`gen_random_uuid()`))
-    .addColumn("sender", "uuid", col => col.notNull())
+    .addColumn("sender", "uuid", col => col)
     .addColumn("receiver", "uuid", col => col)
     .addColumn("message", "varchar(128)", col => col.notNull())
     .addColumn("created_at", "bigint", col => col.notNull().defaultTo(sql`(extract(epoch from now()))`))

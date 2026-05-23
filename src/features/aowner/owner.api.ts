@@ -4,7 +4,9 @@ import { validate, validate_base } from "../../zutils/api.util";
 import { ownerGuard } from "../../zutils/middleware.util";
 import type { AuthVars } from "../../types";
 import { sch } from "./owner.schemas";
-import { become_owner, make_admin, demote_admin, get_user_for_owner } from "./owner.serv";
+import { become_owner, make_admin, demote_admin, 
+  get_user_for_owner, send_notification_everyone
+} from "./owner.serv";
 
 const router = new Hono<{Variables: AuthVars}>()
 router.use("*", authGuard)
@@ -36,6 +38,15 @@ router.get("/user/:username", ownerGuard, async (c) => {
   const res = await get_user_for_owner(username)
   return c.json(res)
 })
+
+router.post("/act/notification", ownerGuard, async (c) => {
+  const { message } = await validate(sch.Notification, c)
+
+  const res = await send_notification_everyone(message)
+  return c.json(res)
+})
+
+
 
 const owner_router = router
 export default owner_router

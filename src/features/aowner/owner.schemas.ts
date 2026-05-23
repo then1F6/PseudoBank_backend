@@ -7,8 +7,10 @@ const OwnerPassword = z.object({
 const UsernameObj = z.object({
   username: Username
 })
-
+const Notification = z.object({
+  message: z.string().min(1).max(128)
+})
 
 export const sch = {
-  OwnerPassword, UsernameObj, UsernameStr: Username
+  OwnerPassword, UsernameObj, UsernameStr: Username, Notification
 }
