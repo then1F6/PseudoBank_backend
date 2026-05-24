@@ -5,7 +5,7 @@ function required(key: string): string {
 }
 
 export const config = {
-  super_secret: required('SUPER_DATA'),
+  PASSWORD_SECRET: required('PASSWORD_SECRET'),
 
   OWNER_PASSWORD:  required("BECOME_OWNER_PASSWORD"),
   DEV_EMAIL_PASSWORD: required("DEV_EMAIL_PASSWORD"),

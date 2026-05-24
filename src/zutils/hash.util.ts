@@ -13,7 +13,7 @@ export async function sha256(input: string) {
 }
 
 export async function sha512(password: string) {
-  const salt = config.super_secret
+  const salt = config.PASSWORD_SECRET
   
   const hash = await scryptAsync(password, salt, 32) as Buffer
   return hash.toString("hex")
