@@ -1,13 +1,15 @@
 import { Hono } from "hono";
+
+
+import { db } from "@/db/db";
+import { validate_base } from "@/utils/api.util";
+import { Username } from "@/utils/schema.util";
+import { HTTPError } from "@/errors/errors";
+
+
 import { say_hello_dev, get_all_users } from "./develop.serv"
 
-import { validate_base } from "../zutils/api.util";
-import { Username } from "../zutils/schema.util";
-import { db } from "../zdb/db";
-import { HTTPError } from "../zerrors/errors";
 const dev_router = new Hono()
-
-
 dev_router.get("/test", async (c) => {
   const res = await say_hello_dev()
   return c.json(res)

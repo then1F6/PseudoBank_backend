@@ -1,4 +1,4 @@
-import { VE } from "../../zerrors/validation_codes"
+import { VE } from "@/errors/validation_codes"
 import z from "zod"
 
 const UsernameQuery = z.object({

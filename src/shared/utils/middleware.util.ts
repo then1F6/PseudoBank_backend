@@ -1,6 +1,6 @@
-import { HTTPError } from "../zerrors/errors";
+import { HTTPError } from "@/errors/errors";
 import type { Context, Next } from "hono";
-import type { AuthVars } from "../types";
+import type { AuthVars } from "../../types";
 
 
 // you have to use them only after authGuard

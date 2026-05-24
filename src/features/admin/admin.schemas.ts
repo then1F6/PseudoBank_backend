@@ -1,5 +1,5 @@
 import z from "zod";
-import { Username } from "../../zutils/schema.util";
+import { Username } from "@/utils/schema.util";
 
 const OwnerPassword = z.object({
   password: z.string()

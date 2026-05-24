@@ -1,6 +1,6 @@
 import { scrypt, timingSafeEqual,createHash } from "node:crypto"
 import { promisify } from "node:util"
-import { config } from "../config"
+import { config } from "~/config"
 const scryptAsync = promisify(scrypt)
 
 export async function sha256(input: string) {

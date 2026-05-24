@@ -1,9 +1,10 @@
 import { Hono } from "hono";
-import type { AuthVars } from "../../types";
-import { schemas as sch} from "./search.schema";
-
+import type { AuthVars } from "~/types";
 import { authGuard } from "../auth/auth.serv";
-import { validate, validate_query } from "../../zutils/api.util";
+
+import { validate, validate_query } from "@/utils/api.util";
+
+import { schemas as sch} from "./search.schema";
 import { search_username, search_display_name } from "./search.serv";
 
 

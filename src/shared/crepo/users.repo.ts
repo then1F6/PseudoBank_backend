@@ -1,7 +1,7 @@
-import type { Trx, DB } from "../zdb/db";
+import type { Trx, DB } from "@/db/db";
 
 import type { Insertable } from "kysely";
-import type { users } from "../zdb/models";
+import type { users } from "@/db/models";
 
 type InsertUser = Insertable<users>
 type TRX = DB | Trx

@@ -1,6 +1,6 @@
-import { type DB, type Trx } from "../zdb/db";
+import { type DB, type Trx } from "@/db/db";
 import type { Insertable } from "kysely";
-import type { notifications } from "../zdb/models";
+import type { notifications } from "@/db/models";
 
 type Create = Insertable<notifications>
 

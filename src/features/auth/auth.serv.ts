@@ -2,21 +2,21 @@ import z from "zod"
 import type { Context, Next } from "hono";
 import { getCookie } from "hono/cookie";
 import { DatabaseError } from "pg"
-import { config } from "../../config";
-
-import { type Trx, db } from "../../zdb/db";
-import type { dto } from "./auth.schema";
-import type { GoogleUserInfo, access_payload, AuthVars } from "../../types"
-
-import usersRepo from "../../srepo/users.repo";
-import profilesRepo from "../../srepo/profiles.repo";
-import refreshsRepo from "../../srepo/refreshs.repo";
-import { get_refresh } from "./auth.zquery";
-import { HTTPError, Success, ValidationError } from "../../zerrors/errors";
-import { generate_avatar } from "../../zutils/avatar.util";
-import { sha512, safe_equal } from "../../zutils/hash.util";
-
 import { SignJWT, jwtVerify } from "jose";
+import { config } from "~/config";
+import type { GoogleUserInfo, access_payload, AuthVars } from "~/types"
+
+
+import { type Trx, db } from "@/db/db";
+import usersRepo from "@/crepo/users.repo";
+import profilesRepo from "@/crepo/profiles.repo";
+import refreshsRepo from "@/crepo/refreshs.repo";
+import { HTTPError, Success, ValidationError } from "@/errors/errors";
+import { generate_avatar } from "@/utils/avatar.util";
+import { sha512, safe_equal } from "@/utils/hash.util";
+
+import { get_refresh } from "./auth.zquery";
+import type { dto } from "./auth.schema";
 
 
 async function decode_jwt(jwt: string | undefined ) {

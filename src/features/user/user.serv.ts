@@ -1,13 +1,13 @@
-import { HTTPError, Success } from "../../zerrors/errors";
+import { HTTPError, Success } from "@/errors/errors";
+import profilesRepo from "@/crepo/profiles.repo";
+import { db } from "@/db/db";
+import type { Trx } from "@/db/db";
+import usersRepo from "@/crepo/users.repo";
+import transactionRepo from "@/crepo/transaction.repo";
+import notificateRepo from "@/crepo/notificate.repo";
+
 import { get_user_profile } from "./user.zquery";
 import type { dto } from "./user.schema";
-
-import profilesRepo from "../../srepo/profiles.repo";
-import { db } from "../../zdb/db";
-import type { Trx } from "../../zdb/db";
-import usersRepo from "../../srepo/users.repo";
-import transactionRepo from "../../srepo/transaction.repo";
-import notificateRepo from "../../srepo/notificate.repo";
 
 
 export async function get_user_info(username: string) {

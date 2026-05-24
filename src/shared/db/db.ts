@@ -1,7 +1,7 @@
 import { Kysely, PostgresDialect, Transaction } from 'kysely'
 import { Pool } from "pg"
 
-import { config } from '../config'
+import { config } from '~/config'
 
 import type { users, profiles, refreshs, transactions, notifications } from './models'
 

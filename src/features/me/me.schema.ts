@@ -1,5 +1,5 @@
-import { SE } from "../../zerrors/error_codes";
-import { VE } from "../../zerrors/validation_codes";
+import { SE } from "@/errors/error_codes";
+import { VE } from "@/errors/validation_codes";
 import { z } from "zod";
 
 const password_field = (z.string().trim()

@@ -1,12 +1,14 @@
 import { Hono } from "hono";
 import { authGuard } from "../auth/auth.serv";
-import { validate, validate_base } from "../../zutils/api.util";
-import { ownerGuard } from "../../zutils/middleware.util";
-import type { AuthVars } from "../../types";
+import { validate, validate_base } from "@/utils/api.util";
+import { ownerGuard } from "@/utils/middleware.util";
+import type { AuthVars } from "~/types";
+
 import { sch } from "./owner.schemas";
 import { become_owner, make_admin, demote_admin, 
   get_user_for_owner, send_notification_everyone
 } from "./owner.serv";
+
 
 const router = new Hono<{Variables: AuthVars}>()
 router.use("*", authGuard)

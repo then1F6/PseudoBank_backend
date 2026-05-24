@@ -1,4 +1,4 @@
-import type { DB, Trx } from "../../zdb/db";
+import type { DB, Trx } from "@/db/db";
 
 
 export async function get_admins(db: DB) {

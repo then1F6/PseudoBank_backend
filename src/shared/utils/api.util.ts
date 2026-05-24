@@ -1,8 +1,8 @@
 import type { Context } from "hono"
 
 import { z } from "zod"
-import { ValidationError } from "../zerrors/errors"
-import { VE } from "../zerrors/validation_codes"
+import { ValidationError } from "@/errors/errors"
+import { VE } from "@/errors/validation_codes"
 
 
 export const validate_base = async <T>( schema: z.ZodSchema<T>, data: unknown): Promise<T> => {
@@ -17,7 +17,11 @@ export const validate_base = async <T>( schema: z.ZodSchema<T>, data: unknown): 
       throw new ValidationError(VE.EMAIL_INVALID)
     }
 
-    throw new ValidationError(issue?.message ?? "validation error")
+    if (issue?.message && issue.message in  VE) {
+      throw new ValidationError(issue.message as keyof typeof VE)
+    } else {
+      throw new ValidationError(VE.VALIDATION_ERROR)
+    }
   }
   return result.data
 }

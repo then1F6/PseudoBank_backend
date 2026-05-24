@@ -1,4 +1,4 @@
-import { sha256 } from "./hash.util";
+import { sha256 } from "@/utils/hash.util";
 
 function getAvatarMask(hashHex: string, X: number): string {
   if (X < 0 || X > 15) throw new Error("X must be between 0 and 15");

@@ -1,14 +1,15 @@
 import { Hono } from "hono";
-import type { AuthVars } from "../../types";
-import { schemas as sch } from "./me.schema";
-
+import type { AuthVars } from "~/types";
 import { authGuard } from "../auth/auth.serv";
-import { validate } from "../../zutils/api.util";
+import { validate } from "@/utils/api.util";
+
 import { get_me_info, change_bio, change_display_name,
   set_init_avatar, set_random_avatar, change_username, change_password,
   change_email_dev, get_my_sended_notifications, get_my_received_notifications,
   get_my_transactions_histrory,
 } from "./me.serv";
+import { schemas as sch } from "./me.schema";
+
 
 
 const router = new Hono<{Variables: AuthVars}>({ strict: false })

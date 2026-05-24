@@ -1,14 +1,12 @@
 import { Hono, type Context } from "hono"
-const auth_router = new Hono()
-
-import { string, z } from "zod"
 import { setCookie, getCookie } from "hono/cookie"
+
+import { validate } from "@/utils/api.util"
+import { Success } from "@/errors/errors"
 import { signup, create_email_jwt, create_email_jwt_dev,
   is_unique_username, login_google, login, get_access, logout
 } from "./auth.serv"
 import { schemas as sch } from "./auth.schema"
-import { validate } from "../../zutils/api.util"
-import { Success } from "../../zerrors/errors"
 
 function set_cookie(c: Context, access_token: string, refresh_token: string) {
   setCookie(c, "access_token", access_token, {
@@ -29,7 +27,7 @@ function set_cookie(c: Context, access_token: string, refresh_token: string) {
 }
 
 
-
+const auth_router = new Hono()
 auth_router.post("/signup/email/dev", async (c) => {
   const { email, dev_password} = await validate(sch.SignupEmailDev, c)
 

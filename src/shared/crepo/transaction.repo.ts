@@ -1,4 +1,4 @@
-import type { Trx, DB } from "../zdb/db";
+import type { Trx, DB } from "@/db/db";
 
 class TransactionRepo {
   constructor() {}

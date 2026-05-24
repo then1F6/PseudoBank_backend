@@ -1,5 +1,5 @@
 import { sql } from "kysely";
-import type { DB } from "../../zdb/db";
+import type { DB } from "@/db/db";
 
 export async function search_by_username(db: DB, query: string) {
   const lower = query.toLowerCase();

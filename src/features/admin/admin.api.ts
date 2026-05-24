@@ -1,12 +1,11 @@
 import { Hono } from "hono";
 import { authGuard } from "../auth/auth.serv";
-import { validate, validate_base } from "../../zutils/api.util";
-import { adminGuard } from "../../zutils/middleware.util";
+import { validate, validate_base } from "@/utils/api.util";
+import { adminGuard } from "@/utils/middleware.util";
+import type { AuthVars } from "~/types";
+
 import { sch } from "./admin.schemas";
-import type { AuthVars } from "../../types";
-import { 
-  get_admins_info, get_user_for_admin,
-} from "./admin.serv";
+import { get_admins_info, get_user_for_admin,} from "./admin.serv";
 
 
 const router = new Hono<{Variables: AuthVars}>()

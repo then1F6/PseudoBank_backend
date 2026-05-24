@@ -1,5 +1,5 @@
 import { sql } from "kysely"
-import { db } from "./db"
+import { db } from "@/db/db"
 
 
 async function create_refreshs_table() {

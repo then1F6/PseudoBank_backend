@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, test } from "bun:test"
 
-import { VE } from "../../src/zerrors/validation_codes";
-import{ SE } from "../../src/zerrors/error_codes"
+import { VE } from "../../src/shared/errors/validation_codes";
+import{ SE } from "../../src/shared/errors/error_codes"
 
 import { str, ustr } from "../__helper/func";
 import { testing, type TestCase } from "../__helper/testing";

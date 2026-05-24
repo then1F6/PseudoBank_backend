@@ -1,5 +1,5 @@
-import { Success } from "../../zerrors/errors";
-import { db } from "../../zdb/db";
+import { Success } from "@/errors/errors";
+import { db } from "@/db/db";
 import { search_by_username, search_by_display_name } from "./search.zquery";
 
 export async function search_username(query: string) {

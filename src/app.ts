@@ -12,8 +12,8 @@ import search_router from './features/search/search.api'
 import admin_router from './features/admin/admin.api'
 import owner_router from './features/aowner/owner.api'
 
-import { start_tables } from "./zdb/tables"
-import { HTTPError, ValidationError } from './zerrors/errors'
+import { start_tables } from "@/db/tables"
+import { HTTPError, ValidationError } from '@/errors/errors'
 import { showRoutes } from 'hono/dev'
 
 

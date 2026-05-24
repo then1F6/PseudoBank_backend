@@ -1,5 +1,5 @@
-import { db } from "../../zdb/db";
-import { HTTPError, Success} from "../../zerrors/errors";
+import { db } from "@/db/db";
+import { HTTPError, Success} from "@/errors/errors";
 import { get_admins, get_info_for_admin } from "./admin.zquery";
 
 

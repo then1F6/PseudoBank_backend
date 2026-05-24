@@ -1,10 +1,10 @@
 import { Hono } from "hono";
-import type { AuthVars } from "../../types";
-import { validate, validate_base } from "../../zutils/api.util";
+import type { AuthVars } from "~/types";
+import { authGuard } from "../auth/auth.serv";
+import { validate, validate_base } from "@/utils/api.util";
 
 import { get_user_info, transfer_money, make_reqest_money } from "./user.serv";
 import { schemas as sch } from "./user.schema"
-import { authGuard } from "../auth/auth.serv";
 
 
 const router = new Hono<{Variables: AuthVars}>()

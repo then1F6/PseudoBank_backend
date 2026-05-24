@@ -1,4 +1,4 @@
-import type { DB } from "../../zdb/db";
+import type { DB } from "@/db/db";
 
 export async function get_refresh(db: DB, refresh: string) {
   return await db.selectFrom("refreshs")

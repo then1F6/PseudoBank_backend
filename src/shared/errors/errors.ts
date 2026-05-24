@@ -1,5 +1,5 @@
-import type { ErrorCode } from "./error_codes"
-import type { ValidationErrorCode } from "./validation_codes"
+import type { ErrorCode } from "@/errors/error_codes"
+import type { ValidationErrorCode } from "@/errors/validation_codes"
 
 export class HTTPError extends Error {
   constructor(public status: number, codeMessage: ErrorCode) {

@@ -1,6 +1,6 @@
-import usersRepo from "../srepo/users.repo"
-import { db } from "../zdb/db"
-import { Success } from "../zerrors/errors"
+import usersRepo from "@/crepo/users.repo"
+import { db } from "@/db/db"
+import { Success } from "@/errors/errors"
 
 export async function say_hello_dev() {
   return new Success("test route")

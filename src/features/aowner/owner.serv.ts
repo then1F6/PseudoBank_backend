@@ -1,9 +1,9 @@
-import { db } from "../../zdb/db";
-import { config } from "../../config";
-import { safe_equal } from "../../zutils/hash.util";
-import { HTTPError, Success} from "../../zerrors/errors";
-import usersRepo from "../../srepo/users.repo";
-import notificateRepo from "../../srepo/notificate.repo";
+import { config } from "~/config";
+import { db } from "@/db/db";
+import { safe_equal } from "@/utils/hash.util";
+import { HTTPError, Success} from "@/errors/errors";
+import usersRepo from "@/crepo/users.repo";
+import notificateRepo from "@/crepo/notificate.repo";
 import { get_info_for_owner } from "./owner.zquery"
 
 

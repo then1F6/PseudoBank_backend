@@ -1,18 +1,17 @@
-import { HTTPError, Success } from "../../zerrors/errors";
 import { DatabaseError } from "pg"
+import { config } from "~/config";
+
+import { HTTPError, Success } from "@/errors/errors";
+import { generate_avatar} from "@/utils/avatar.util";
+import { sha512, safe_equal } from "@/utils/hash.util";
+import { db } from "@/db/db";
+import profilesRepo from "@/crepo/profiles.repo";
+import usersRepo from "@/crepo/users.repo";
+import notificateRepo from "@/crepo/notificate.repo";
+import transactionRepo from "@/crepo/transaction.repo";
 
 import type { dto } from "./me.schema";
-import { generate_avatar} from "../../zutils/avatar.util";
-import { sha512, safe_equal } from "../../zutils/hash.util";
-import { config } from "../../config";
-
-import profilesRepo from "../../srepo/profiles.repo";
-import usersRepo from "../../srepo/users.repo";
 import { get_me_full } from "./me.zquery";
-
-import { db } from "../../zdb/db";
-import notificateRepo from "../../srepo/notificate.repo";
-import transactionRepo from "../../srepo/transaction.repo";
 
 
 async function verify_password(user_id: string, password: string) {

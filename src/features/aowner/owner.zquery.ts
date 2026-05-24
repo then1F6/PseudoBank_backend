@@ -1,4 +1,4 @@
-import type { DB, Trx } from "../../zdb/db";
+import type { DB, Trx } from "@/db/db";
 
 export async function get_info_for_owner(db: DB, username: string) {
   return db.selectFrom("users as u")

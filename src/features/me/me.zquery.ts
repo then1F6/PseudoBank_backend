@@ -1,4 +1,4 @@
-import type { DB } from "../../zdb/db";
+import type { DB } from "@/db/db";
 
 export async function get_me_full(db: DB, user_id: string) {
   const info = await db.selectFrom("users")
