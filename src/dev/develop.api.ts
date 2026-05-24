@@ -1,28 +1,30 @@
 import { Hono } from "hono";
 
-
 import { db } from "@/db/db";
 import { validate_base } from "@/utils/api.util";
 import { Username } from "@/utils/schema.util";
 import { HTTPError } from "@/errors/errors";
-
+import { devGuard } from "@/middlewares/middlewares";
 
 import { say_hello_dev, get_all_users } from "./develop.serv"
 
-const dev_router = new Hono()
-dev_router.get("/test", async (c) => {
+
+const router = new Hono()
+router.use("*", devGuard)
+
+router.get("/test", async (c) => {
   const res = await say_hello_dev()
   return c.json(res)
 })
-dev_router.get("/users", async (c) => {
+router.get("/users", async (c) => {
   return c.json(await get_all_users())
 })
-dev_router.get("/profiles", async (c) => {
+router.get("/profiles", async (c) => {
   const res = await db.selectFrom("profiles")
     .selectAll().limit(100).execute()
   return c.json(res)
 })
-dev_router.get("/trans", async (c) => {
+router.get("/trans", async (c) => {
   const res = await db.selectFrom("transactions")
   .leftJoin("users as sender", "sender.id", "transactions.from")
   .leftJoin("users as receiver", "receiver.id", "transactions.to")
@@ -33,7 +35,7 @@ dev_router.get("/trans", async (c) => {
   ]).orderBy("transactions.created_at", "desc").limit(100).execute()
   return c.json(res)
 })
-dev_router.get("/notifics", async (c) => {
+router.get("/notifics", async (c) => {
   const res = await db.selectFrom("notifications as n")
   .leftJoin("users as sender", "sender.id", "n.sender")
   .leftJoin("users as receiver", "receiver.id", "n.receiver")
@@ -45,7 +47,7 @@ dev_router.get("/notifics", async (c) => {
   return c.json(res)
 })
 
-dev_router.get("/IDof/:username", async (c) => {
+router.get("/IDof/:username", async (c) => {
   const username = await validate_base(Username, c.req.param('username'))
 
   const res = await db.selectFrom("users")
@@ -59,4 +61,4 @@ dev_router.get("/IDof/:username", async (c) => {
   })
 })
 
-export default dev_router
+export default router

@@ -34,7 +34,8 @@ export const SE = {
   SOMETHING_WRONG: "SOMETHING_WRONG",
 
   NOT_OWNER: "NOT_OWNER",
-  NOT_ADMIN: "NOT_ADMIN"
+  NOT_ADMIN: "NOT_ADMIN",
+  NOT_DEV: "NOT_DEV",
 
 } as const;
 

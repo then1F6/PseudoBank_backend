@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import type { AuthVars } from "~/types";
-import { authGuard } from "../auth/auth.serv";
+import { authGuard } from "@/middlewares/middlewares";
 import { validate } from "@/utils/api.util";
 
 import { get_me_info, change_bio, change_display_name,

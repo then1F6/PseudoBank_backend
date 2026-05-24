@@ -12,5 +12,7 @@ export const config = {
   DEV_EMAIL_PASSWORD: required("DEV_EMAIL_PASSWORD"),
 
   DB_URL: required("DB_URL"),
-  PORT: Number(required("PORT"))
+  PORT: Number(required("PORT")),
+
+  RUN_NODE: required("RUN_NODE") as "DEV"|"PROD",
 }

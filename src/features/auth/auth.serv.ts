@@ -2,7 +2,7 @@ import z from "zod"
 import type { Context, Next } from "hono";
 import { getCookie } from "hono/cookie";
 import { DatabaseError } from "pg"
-import { SignJWT, jwtVerify } from "jose";
+import { SignJWT } from "jose";
 import { config } from "~/config";
 import type { GoogleUserInfo, access_payload, AuthVars } from "~/types"
 
@@ -14,18 +14,13 @@ import refreshsRepo from "@/crepo/refreshs.repo";
 import { HTTPError, Success, ValidationError } from "@/errors/errors";
 import { generate_avatar } from "@/utils/avatar.util";
 import { sha512, safe_equal } from "@/utils/hash.util";
+import { decode_jwt } from "@/utils/jwt.util";
 
 import { get_refresh } from "./auth.zquery";
 import type { dto } from "./auth.schema";
 
 
-async function decode_jwt(jwt: string | undefined ) {
-  if (!jwt) throw new HTTPError(401, "NOT_JWT")
-  try {
-    const { payload } = await jwtVerify(jwt, config.SECRET_JWT)
-    return payload
-  } catch { throw new HTTPError(401, "INVALID_JWT")}
-}
+
 async function verify_google(token: string) {
   const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
     headers: { Authorization: `Bearer ${token}` },
@@ -210,27 +205,4 @@ export function logout(refresh: string | undefined) {
   
   refreshsRepo.delete(db, refresh).catch(() => {})
   return new Success("logged out")
-}
-
-
-export async function authGuard(c: Context<{Variables: AuthVars}>, next: Next) {
-
-  const access_token = getCookie(c, "access_token")
-  if (!access_token) {throw new HTTPError(401, "NOT_ACCESS_TOKEN")}
-
-  const payload = await decode_jwt(access_token) as unknown as access_payload
-
-  const impersonate_user_id = c.req.header("X-Impersonate-User-Id")
-  if (impersonate_user_id && payload.role === "owner") {
-    if (!z.uuid().safeParse(impersonate_user_id).success) {
-      throw new ValidationError("INVALID_UUID")
-    }
-    console.log("[ WARNING ] owner is impersonating user with id "+impersonate_user_id+" (real user id: "+payload.user_id+")")
-    payload.user_id = impersonate_user_id
-    payload.role = "user"
-  }
-
-  c.set("payload", payload)
-
-  return await next()
 }

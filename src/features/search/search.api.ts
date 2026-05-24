@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import type { AuthVars } from "~/types";
-import { authGuard } from "../auth/auth.serv";
+import { authGuard } from "@/middlewares/middlewares";
 
 import { validate, validate_query } from "@/utils/api.util";
 
